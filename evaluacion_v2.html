@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluación de Presentación</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #ede9fe 100%);
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --accent-blue: #3b82f6;
+      --border-color: #e2e8f0;
+      --input-focus-shadow: rgba(99, 102, 241, 0.25);
+      --radius: 16px;
+      --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+    }
+
+    * { box-sizing: border-box; outline: none; }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.5;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      width: 100%;
+      max-width: 700px;
+      padding: 40px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      margin-top: 0;
+      font-weight: 800;
+      font-size: 2rem;
+    }
+
+    p.intro {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      margin-top: 40px;
+      margin-bottom: 25px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .section-badge {
+      background: var(--primary);
+      color: white;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 50px;
+      margin-right: 15px;
+      font-size: 0.9rem;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    label.question-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-main);
+      font-size: 1.05rem;
+    }
+
+    .helper-text {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      margin-top: -4px;
+    }
+
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      font-size: 1rem;
+      background-color: #f8fafc;
+      margin-bottom: 25px;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--primary);
+      background-color: #fff;
+      box-shadow: 0 0 0 4px var(--input-focus-shadow);
+    }
+
+    .scale-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .scale-option { flex: 1; position: relative; }
+    .scale-option input[type="radio"] {
+      opacity: 0; position: absolute; height: 100%; width: 100%; cursor: pointer; z-index: 2;
+    }
+
+    .scale-label {
+      display: flex; justify-content: center; align-items: center; height: 50px;
+      background: #f1f5f9; border: 2px solid var(--border-color); border-radius: 10px;
+      font-weight: bold; color: var(--text-muted); transition: all 0.2s;
+    }
+
+    .scale-option input:checked + .scale-label {
+      background: var(--primary); border-color: var(--primary); color: white;
+      transform: translateY(-2px); box-shadow: 0 4px 6px -1px var(--input-focus-shadow);
+    }
+
+    .kss-box textarea { border-left-width: 5px; }
+    .kss-keep textarea { border-left-color: var(--accent-green); }
+    .kss-stop textarea { border-left-color: var(--accent-red); }
+    .kss-start textarea { border-left-color: var(--accent-blue); }
+
+    .submit-btn {
+      width: 100%; padding: 18px;
+      background: linear-gradient(to right, var(--primary), var(--primary-hover));
+      color: white; border: none; border-radius: 50px;
+      font-size: 1.2rem; font-weight: 800; cursor: pointer;
+      box-shadow: 0 10px 20px -5px var(--input-focus-shadow);
+      transition: all 0.3s; margin-top: 30px;
+    }
+
+    .submit-btn:disabled { background: #94a3b8; cursor: not-allowed; transform: none; }
+
+    /* Estilos para el mensaje de Gracias */
+    #success-message {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .success-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="form-card">
+    <div id="form-content">
+      <h1>🚀 Feedback de Presentación</h1>
+      <p class="intro">Tu retroalimentación es vital para seguir creciendo. ¡Gracias por tu honestidad!</p>
+
+      <form id="feedback-form" action="https://script.google.com/macros/s/AKfycbyzrFXeQhZotVqtGUqwPt3QJXBCjRklp7ms4Mka0Wg9dKsR2wPjLp9xB8m8mw8a3aumgw/exec" method="POST">
+        
+        <label for="clave" class="question-label">🔑 ¿Cuál es la clave del ponente?</label>
+        <input type="text" id="clave" name="clave" placeholder="Ejemplo: bio2026" required>
+
+        <div class="section-header">
+          <div class="section-badge">01</div>
+          <div class="section-title">Diseño y Visualización</div>
+        </div>
+        
+        <label class="question-label">🎨 Uso de Color y Contraste</label>
+        <div class="scale-container">
+          <div class="scale-option"><input type="radio" name="color" value="1" required><div class="scale-label">1</div></div>
+          <div class="scale-option"><input type="radio" name="color" value="2"><div class="scale-label">2</div></div>
+          <div class="scale-option"><input type="radio" name="color" value="3"><div class="scale-label">3</div></div>
+          <div class="scale-option"><input type="radio" name="color" value="4"><div class="scale-label">4</div></div>
+          <div class="scale-option"><input type="radio" name="color" value="5"><div class="scale-label">5</div></div>
+        </div>
+
+        <label class="question-label">📐 Jerarquía Visual</label>
+        <div class="scale-container">
+          <div class="scale-option"><input type="radio" name="jerarquia" value="1" required><div class="scale-label">1</div></div>
+          <div class="scale-option"><input type="radio" name="jerarquia" value="2"><div class="scale-label">2</div></div>
+          <div class="scale-option"><input type="radio" name="jerarquia" value="3"><div class="scale-label">3</div></div>
+          <div class="scale-option"><input type="radio" name="jerarquia" value="4"><div class="scale-label">4</div></div>
+          <div class="scale-option"><input type="radio" name="jerarquia" value="5"><div class="scale-label">5</div></div>
+        </div>
+
+        <label class="question-label">📄 Densidad de Información</label>
+        <select name="densidad" required>
+          <option value="" disabled selected>Selecciona...</option>
+          <option value="Vacia">Muy poco texto</option>
+          <option value="Adecuada">Equilibrada</option>
+          <option value="Saturada">Demasiado texto</option>
+        </select>
+
+        <div class="section-header">
+          <div class="section-badge">02</div>
+          <div class="section-title">El Ponente en Escena</div>
+        </div>
+
+        <label class="question-label">🎤 Dominio del Tema</label>
+        <div class="scale-container">
+          <div class="scale-option"><input type="radio" name="dominio" value="1" required><div class="scale-label">1</div></div>
+          <div class="scale-option"><input type="radio" name="dominio" value="2"><div class="scale-label">2</div></div>
+          <div class="scale-option"><input type="radio" name="dominio" value="3"><div class="scale-label">3</div></div>
+          <div class="scale-option"><input type="radio" name="dominio" value="4"><div class="scale-label">4</div></div>
+          <div class="scale-option"><input type="radio" name="dominio" value="5"><div class="scale-label">5</div></div>
+        </div>
+
+        <label class="question-label">🗣️ Claridad en la Explicación</label>
+        <div class="scale-container">
+          <div class="scale-option"><input type="radio" name="claridad" value="1" required><div class="scale-label">1</div></div>
+          <div class="scale-option"><input type="radio" name="claridad" value="2"><div class="scale-label">2</div></div>
+          <div class="scale-option"><input type="radio" name="claridad" value="3"><div class="scale-label">3</div></div>
+          <div class="scale-option"><input type="radio" name="claridad" value="4"><div class="scale-label">4</div></div>
+          <div class="scale-option"><input type="radio" name="claridad" value="5"><div class="scale-label">5</div></div>
+        </div>
+
+        <div class="section-header">
+          <div class="section-badge" style="background: #1e293b;">KSS</div>
+          <div class="section-title">Metodología de Crecimiento</div>
+        </div>
+
+        <div class="kss-box kss-keep">
+          <label class="question-label" style="color: var(--accent-green);">🟢 KEEP (Mantener)</label>
+          <textarea name="keep" rows="3" placeholder="¿Qué debe seguir haciendo?"></textarea>
+        </div>
+
+        <div class="kss-box kss-stop">
+          <label class="question-label" style="color: var(--accent-red);">🔴 STOP (Dejar de hacer)</label>
+          <textarea name="stop" rows="3" placeholder="¿Qué debería dejar de hacer?"></textarea>
+        </div>
+
+        <div class="kss-box kss-start">
+          <label class="question-label" style="color: var(--accent-blue);">🔵 START (Empezar a hacer)</label>
+          <textarea name="start" rows="3" placeholder="¿Qué recurso nuevo debería implementar?"></textarea>
+        </div>
+
+        <div class="section-header">
+          <div class="section-badge" style="background: var(--text-muted);">+</div>
+          <div class="section-title">Reporte de Errores y Comentarios</div>
+        </div>
+        <label class="question-label">⚠️ Notas adicionales</label>
+        <span class="helper-text">(Opcional) Si notaste errores en diapos o quieres dejar un comentario extra.</span>
+        <textarea name="errores" rows="3" placeholder="Ej: Diapo 5, error en gráfico..."></textarea>
+
+        <button type="submit" id="submit-btn" class="submit-btn">Enviar Evaluación 🚀</button>
+      </form>
+    </div>
+
+    <div id="success-message">
+      <span class="success-icon">🎉</span>
+      <h2>¡Evaluación Enviada!</h2>
+      <p>Muchas gracias por tu tiempo. Tu feedback ayudará al ponente a seguir mejorando.</p>
+      <button onclick="location.reload()" class="submit-btn" style="background: var(--text-main); font-size: 1rem; width: auto; padding: 12px 30px;">Enviar otra respuesta</button>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('feedback-form');
+    const btn = document.getElementById('submit-btn');
+    const formContent = document.getElementById('form-content');
+    const successMessage = document.getElementById('success-message');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      
+      // Feedback visual inmediato
+      btn.disabled = true;
+      btn.innerText = 'Enviando... ⏳';
+
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors' // Importante para Google Apps Script
+      })
+      .then(() => {
+        // Ocultar formulario y mostrar mensaje de éxito
+        formContent.style.display = 'none';
+        successMessage.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un problema al enviar. Por favor revisa tu conexión.');
+        btn.disabled = false;
+        btn.innerText = 'Enviar Evaluación 🚀';
+      });
+    });
+  </script>
+
+</body>
+</html>
