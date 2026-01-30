@@ -5,22 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evaluación de Presentación</title>
   <style>
-    /* Mismos colores de tu versión anterior */
+    /* --- PALETA DARK PRO (Igual que el Quizz) --- */
     :root {
-      --bg-gradient: linear-gradient(135deg, #e0f2fe 0%, #ede9fe 100%);
-      --card-bg: #ffffff;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --primary: #4f46e5;
-      --primary-hover: #4338ca;
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
       --accent-green: #10b981;
       --accent-red: #ef4444;
       --accent-blue: #3b82f6;
-      --accent-gold: #f59e0b; /* Nuevo para estrellas */
-      --border-color: #e2e8f0;
+      --accent-gold: #fbbf24;
+      --border-color: #334155;
+      --input-bg: #0f172a;
       --input-focus-shadow: rgba(99, 102, 241, 0.25);
       --radius: 16px;
-      --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
     * { box-sizing: border-box; outline: none; }
@@ -45,6 +46,7 @@
       padding: 40px;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
     }
 
     h1 { text-align: center; color: var(--primary); margin-top: 0; font-weight: 800; font-size: 2rem; }
@@ -52,56 +54,62 @@
 
     .section-header {
       display: flex; align-items: center; margin-top: 40px; margin-bottom: 25px;
-      border-bottom: 2px solid var(--border-color); padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color); padding-bottom: 10px;
     }
     .section-badge {
       background: var(--primary); color: white; font-weight: bold;
       padding: 6px 12px; border-radius: 50px; margin-right: 15px; font-size: 0.9rem;
     }
-    .section-title { font-size: 1.25rem; font-weight: 700; }
+    .section-title { font-size: 1.25rem; font-weight: 700; color: white; }
 
-    label.question-label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-main); font-size: 1.05rem; }
-    .helper-text { display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px; margin-top: -4px; }
+    label.question-label { display: block; font-weight: 600; margin-bottom: 4px; color: var(--text-main); font-size: 1.1rem; }
+    
+    /* ESTILO NUEVO PARA LA DESCRIPCIÓN */
+    .helper-text { 
+      display: block; 
+      font-size: 0.9rem; 
+      color: var(--text-muted); 
+      margin-bottom: 15px; 
+      font-style: italic;
+    }
 
-    /* ESTILOS DEL DROPDOWN (SELECT) */
-    select, input[type="text"], textarea {
+    /* DROPDOWN Y TEXTAREAS */
+    select, textarea {
       width: 100%; padding: 14px; border: 2px solid var(--border-color);
-      border-radius: 12px; font-size: 1rem; background-color: #f8fafc; margin-bottom: 25px;
-      appearance: none; /* Quita estilo por defecto */
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
+      border-radius: 12px; font-size: 1rem; background-color: var(--input-bg); color: white; margin-bottom: 25px;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
       background-repeat: no-repeat;
       background-position: right 1rem center;
       background-size: 1em;
     }
     select:focus, textarea:focus {
-      border-color: var(--primary); background-color: #fff;
+      border-color: var(--primary);
       box-shadow: 0 0 0 4px var(--input-focus-shadow);
     }
 
-    /* ESTILOS DE LAS ESTRELLAS */
+    /* ESTRELLAS */
     .star-rating {
       display: flex;
-      flex-direction: row-reverse; /* Invertimos para usar el selector ~ */
-      justify-content: flex-end; /* Alineamos a la izquierda */
+      flex-direction: row-reverse;
+      justify-content: flex-end;
       gap: 5px;
       margin-bottom: 30px;
     }
-    .star-rating input { display: none; } /* Ocultar radio buttons */
+    .star-rating input { display: none; }
     
     .star-rating label {
-      font-size: 2.5rem; /* Tamaño estrella */
-      color: #e2e8f0;    /* Gris apagado */
+      font-size: 2.5rem;
+      color: #334155; /* Color apagado oscuro */
       cursor: pointer;
       transition: color 0.2s;
       line-height: 1;
     }
-
-    /* Lógica de color: Al marcar uno, se iluminan él y sus hermanos siguientes (que en HTML son los anteriores por row-reverse) */
     .star-rating input:checked ~ label { color: var(--accent-gold); } 
     .star-rating label:hover,
-    .star-rating label:hover ~ label { color: #fcd34d; } /* Hover más claro */
+    .star-rating label:hover ~ label { color: #fcd34d; }
 
-    /* KSS y Botones */
+    /* KSS */
     .kss-box textarea { border-left-width: 5px; }
     .kss-keep textarea { border-left-color: var(--accent-green); }
     .kss-stop textarea { border-left-color: var(--accent-red); }
@@ -124,14 +132,15 @@
   <div class="card">
     <div id="form-content">
       <h1>🚀 Feedback de Presentación</h1>
-      <p class="intro">Tu retroalimentación ayuda a mejorar. ¡Gracias!</p>
+      <p class="intro">Ayuda al ponente a mejorar con tu opinión honesta.</p>
 
       <form id="feedback-form" action="https://script.google.com/macros/s/AKfycbyzrFXeQhZotVqtGUqwPt3QJXBCjRklp7ms4Mka0Wg9dKsR2wPjLp9xB8m8mw8a3aumgw/exec" method="POST">
         
         <label for="clave" class="question-label">🔑 Selecciona al Ponente</label>
+        <span class="helper-text">Elige a la persona que acaba de exponer.</span>
         <select id="clave" name="clave" required>
           <option value="" disabled selected>Cargando lista...</option>
-          </select>
+        </select>
 
         <div class="section-header">
           <div class="section-badge">01</div>
@@ -139,7 +148,7 @@
         </div>
         
         <label class="question-label">🎨 Uso de Color y Contraste</label>
-        <span class="helper-text">¿Facilitaron la lectura?</span>
+        <span class="helper-text">¿Facilitaron la lectura y destacaron lo importante?</span>
         <div class="star-rating">
           <input type="radio" id="col5" name="color" value="5" required><label for="col5">★</label>
           <input type="radio" id="col4" name="color" value="4"><label for="col4">★</label>
@@ -149,7 +158,7 @@
         </div>
 
         <label class="question-label">📐 Equilibrio y Legibilidad</label>
-        <span class="helper-text">Organización del contenido</span>
+        <span class="helper-text">¿El tamaño de letra y la distribución fueron adecuados?</span>
         <div class="star-rating">
           <input type="radio" id="leg5" name="legibilidad" value="5" required><label for="leg5">★</label>
           <input type="radio" id="leg4" name="legibilidad" value="4"><label for="leg4">★</label>
@@ -159,6 +168,7 @@
         </div>
 
         <label class="question-label">🖼️ Calidad de Gráficos</label>
+        <span class="helper-text">¿Imágenes nítidas y relevantes para el tema?</span>
         <div class="star-rating">
           <input type="radio" id="gra5" name="graficos" value="5" required><label for="gra5">★</label>
           <input type="radio" id="gra4" name="graficos" value="4"><label for="gra4">★</label>
@@ -173,6 +183,7 @@
         </div>
 
         <label class="question-label">🎤 Dominio y Seguridad</label>
+        <span class="helper-text">¿Mostró preparación, confianza y control del tema?</span>
         <div class="star-rating">
           <input type="radio" id="dom5" name="dominio" value="5" required><label for="dom5">★</label>
           <input type="radio" id="dom4" name="dominio" value="4"><label for="dom4">★</label>
@@ -182,6 +193,7 @@
         </div>
 
         <label class="question-label">🗣️ Claridad y Explicación</label>
+        <span class="helper-text">¿Se entendió el mensaje sin confusiones?</span>
         <div class="star-rating">
           <input type="radio" id="cla5" name="claridad" value="5" required><label for="cla5">★</label>
           <input type="radio" id="cla4" name="claridad" value="4"><label for="cla4">★</label>
@@ -191,6 +203,7 @@
         </div>
 
         <label class="question-label">💎 Calidad del Contenido</label>
+        <span class="helper-text">¿La información fue valiosa y bien estructurada?</span>
         <div class="star-rating">
           <input type="radio" id="con5" name="contenido" value="5" required><label for="con5">★</label>
           <input type="radio" id="con4" name="contenido" value="4"><label for="con4">★</label>
@@ -200,30 +213,34 @@
         </div>
 
         <div class="section-header">
-          <div class="section-badge" style="background: #1e293b;">KSS</div>
+          <div class="section-badge" style="background: #0f172a;">KSS</div>
           <div class="section-title">Metodología de Crecimiento</div>
         </div>
 
         <div class="kss-box kss-keep">
-          <label class="question-label" style="color: var(--accent-green);">🟢 KEEP</label>
-          <textarea name="keep" rows="2" placeholder="Lo que debe seguir haciendo..."></textarea>
+          <label class="question-label" style="color: var(--accent-green);">🟢 KEEP (Mantener)</label>
+          <span class="helper-text">Lo que hizo bien y debe seguir haciendo.</span>
+          <textarea name="keep" rows="2" placeholder="Ej: Buen contacto visual..."></textarea>
         </div>
 
         <div class="kss-box kss-stop">
-          <label class="question-label" style="color: var(--accent-red);">🔴 STOP</label>
-          <textarea name="stop" rows="2" placeholder="Lo que debería dejar de hacer..."></textarea>
+          <label class="question-label" style="color: var(--accent-red);">🔴 STOP (Detener)</label>
+          <span class="helper-text">Lo que no funcionó y debería evitar.</span>
+          <textarea name="stop" rows="2" placeholder="Ej: Leer demasiado las diapositivas..."></textarea>
         </div>
 
         <div class="kss-box kss-start">
-          <label class="question-label" style="color: var(--accent-blue);">🔵 START</label>
-          <textarea name="start" rows="2" placeholder="Lo que debería implementar..."></textarea>
+          <label class="question-label" style="color: var(--accent-blue);">🔵 START (Comenzar)</label>
+          <span class="helper-text">Lo que le faltó y debería implementar.</span>
+          <textarea name="start" rows="2" placeholder="Ej: Usar más ejemplos prácticos..."></textarea>
         </div>
 
         <div class="section-header">
           <div class="section-badge" style="background: var(--text-muted);">+</div>
           <div class="section-title">Comentarios Finales</div>
         </div>
-        <textarea name="errores" rows="3" placeholder="Reporte de errores o notas extra..."></textarea>
+        <span class="helper-text">Cualquier otra nota, reporte de error o felicitación.</span>
+        <textarea name="errores" rows="3" placeholder="Escribe aquí..."></textarea>
 
         <button type="submit" id="submit-btn" class="submit-btn">Enviar Evaluación 🚀</button>
       </form>
@@ -232,8 +249,8 @@
     <div id="success-message">
       <span class="success-icon">🎉</span>
       <h2>¡Evaluación Enviada!</h2>
-      <p>Tu feedback ha sido procesado correctamente.</p>
-      <button onclick="location.reload()" class="submit-btn" style="background: var(--text-main); width: auto; padding: 12px 30px; font-size: 1rem;">Evaluar a otro ponente</button>
+      <p style="color: var(--text-muted)">Tu feedback ha sido procesado correctamente.</p>
+      <button onclick="location.reload()" class="submit-btn" style="background: #334155; width: auto; padding: 12px 30px; font-size: 1rem;">Evaluar a otro ponente</button>
     </div>
   </div>
 
@@ -244,8 +261,7 @@
     const successMessage = document.getElementById('success-message');
     const selectPonente = document.getElementById('clave');
 
-    // 1. CARGAR LISTA DE PONENTES (Requiere que tu Script tenga doGet)
-    // Si tu script no devuelve datos, puedes descomentar la parte manual abajo.
+    // CARGAR LISTA AUTOMÁTICA
     window.onload = function() {
        const SCRIPT_URL = form.action; 
        
@@ -254,7 +270,6 @@
          .then(data => {
             selectPonente.innerHTML = '<option value="" disabled selected>Selecciona una opción</option>';
             data.forEach(item => {
-               // Asume que 'item' es el nombre o clave
                const option = document.createElement('option');
                option.value = item;
                option.innerText = item;
@@ -262,18 +277,17 @@
             });
          })
          .catch(err => {
-            console.log("No se pudo cargar la lista automática. Usando respaldo manual.");
-            // ⚠️ SI NO JALA AUTOMÁTICO, USA ESTO MANUALMENTE:
+            console.log("Usando lista manual por error de conexión.");
+            // ⚠️ OPCIONES MANUALES DE RESPALDO
             selectPonente.innerHTML = `
                <option value="" disabled selected>Selecciona...</option>
                <option value="Ponente 1">Ponente 1</option>
                <option value="Ponente 2">Ponente 2</option>
-               <option value="Ponente 3">Ponente 3</option>
             `;
          });
     };
 
-    // 2. ENVIAR FORMULARIO
+    // ENVIAR FORMULARIO
     form.addEventListener('submit', e => {
       e.preventDefault();
       btn.disabled = true;
