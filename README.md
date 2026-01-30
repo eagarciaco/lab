@@ -1,6 +1,6 @@
 <br />
 <div align="center">
-  <h1 align="center">RECURSOS LAB</h1>#
+  <h1 align="center">RECURSOS LAB</h1>
 </div>
 
 ---
